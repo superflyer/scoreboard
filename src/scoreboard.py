@@ -18,10 +18,9 @@ scores = defaultdict(int)
 
 
 # web page defs
-@app.route('/:name')
-def index(name='Test'):
-	print(name)
-	players = name.split('-')
+@app.route('/:names')
+def index(names='Test'):
+	players = names.split('-')
 	return template("templates/scoreboard", scores={p : scores[p] for p in players})
 
 
@@ -30,12 +29,12 @@ def server_static(filename):
 	return static_file(filename, root='static')
 
 
-@app.route('/increment', method='POST')
-def query_submit():
+@app.route('/:names', method='POST')
+def query_submit(names):
 	scoringPlayer = request.forms.get('scoringPlayer')
-	allPlayers = request.forms.get('allPlayers').split('-')
+	players = names.split('-')
 	scores[scoringPlayer] += 1
-	return template("templates/scoreboard", scores={p : scores[p] for p in allPlayers})
+	return template("templates/scoreboard", scores={p : scores[p] for p in players})
 
 
 if __name__=='__main__':
