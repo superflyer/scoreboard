@@ -6,6 +6,9 @@
 		function increment{{p}}() {
 			document.increment{{p}}.submit();
 		}
+		function decrement{{p}}() {
+			document.decrement{{p}}.submit();
+		}
 		% end
 	</script>
 
@@ -25,11 +28,19 @@
    	<tr>
    		<form action="/{{'-'.join(scores.keys())}}" name="increment{{p}}" method="post">
 			<input type="hidden" name="scoringPlayer" value="{{p}}">
+			<input type="hidden" name="pointChange" value="1">
+		</form>
+   		<form action="/{{'-'.join(scores.keys())}}" name="decrement{{p}}" method="post">
+			<input type="hidden" name="scoringPlayer" value="{{p}}">
+			<input type="hidden" name="pointChange" value="-1">
 		</form>
 	   	<td><h1>{{p.capitalize()}}</h1></td>
 	   	<td><h1>{{scores[p]}}</h1></td>
 	   	<td><a href="javascript: increment{{p}}()"><span>
 	   		<img src='/static/up.png' width=40 height=40></span></a>
+   		</td>
+	   	<td><a href="javascript: decrement{{p}}()"><span>
+	   		<img src='/static/down.png' width=40 height=40></span></a>
    		</td>
    	</tr>
    	% end

@@ -32,8 +32,9 @@ def server_static(filename):
 @app.route('/:names', method='POST')
 def query_submit(names):
 	scoringPlayer = request.forms.get('scoringPlayer')
+	pointChange = int(request.forms.get('pointChange'))
 	players = names.split('-')
-	scores[scoringPlayer] += 1
+	scores[scoringPlayer] += pointChange
 	return template("templates/scoreboard", scores={p : scores[p] for p in players})
 
 
